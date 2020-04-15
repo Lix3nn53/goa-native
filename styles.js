@@ -6,12 +6,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     marginTop: 50,
   },
-  input: {
-    backgroundColor: "#bbb",
-  },
-  listItem: {
-    backgroundColor: "#ccc",
-  },
 });
 
 export default styles;

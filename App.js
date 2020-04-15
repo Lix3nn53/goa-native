@@ -1,26 +1,14 @@
 import React, { useState } from "react";
-import {
-  Text,
-  TextInput,
-  View,
-  Button,
-  ScrollView,
-  FlatList,
-} from "react-native";
+import { View, FlatList } from "react-native";
 import styles from "./styles";
+import GoalItem from "./components/GoalItem";
+import GoalInput from "./components/GoalInput";
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState("");
   const [courseGoals, setCourseGoals] = useState([]);
 
-  function goalInputHandler(enteredText) {
-    setEnteredGoal(enteredText);
-  }
-
-  function addGoalHandler() {
-    console.log(enteredGoal);
-    var length = courseGoals.length;
-    setCourseGoals((courseGoals) => [...courseGoals, enteredGoal]);
+  function addGoalHandler(enteredGoal) {
+    setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
     //setEnteredGoal("");
   }
 
@@ -28,24 +16,25 @@ export default function App() {
     setCourseGoals([]);
   }
 
+  function removeGoalHandler(indexToRemove) {
+    var a = courseGoals.slice(); //create a copy since we cant edit directly
+    a.splice(indexToRemove, 1); //remove
+    setCourseGoals(a); //apply
+  }
+
   return (
     <View style={styles.container}>
-      <View style={styles.container}>
-        <TextInput
-          placeholder="Course goal"
-          style={styles.input}
-          onChangeText={goalInputHandler}
-          value={enteredGoal}
-        />
-        <Button title="ADD" onPress={addGoalHandler} />
-        <Button title="CLEAR" onPress={clearGoalsHandler} />
-      </View>
+      <GoalInput onAddGoal={addGoalHandler} onClearGoals={clearGoalsHandler} />
       <FlatList
         keyExtractor={(item, index) => index + ""}
         style={styles.container}
         data={courseGoals}
         renderItem={(itemData) => (
-          <Text style={styles.listItem}>{itemData.item}</Text>
+          <GoalItem
+            text={itemData.item}
+            index={itemData.index}
+            onDelete={removeGoalHandler}
+          />
         )}
       />
     </View>
