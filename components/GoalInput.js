@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { View, TextInput, StyleSheet, Button } from "react-native";
+import { View, TextInput, Button, StyleSheet } from "react-native";
+import CustomModal from "./CustomModal";
 
 const GoalInput = (props) => {
   const [enteredGoal, setEnteredGoal] = useState("");
@@ -8,32 +9,43 @@ const GoalInput = (props) => {
     setEnteredGoal(enteredText);
   }
 
+  function addGoalHandler(enteredText) {
+    props.onAddGoal(enteredGoal);
+    setEnteredGoal("");
+  }
+
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        placeholder="Course goal"
-        style={styles.input}
-        onChangeText={goalInputHandler}
-        value={enteredGoal}
-      />
-      <View style={styles.button}>
-        <Button title="ADD" onPress={props.onAddGoal.bind(this, enteredGoal)} />
+    <CustomModal visible={props.visible} onCancel={props.onCancel}>
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Course goal"
+          style={styles.input}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <View style={styles.button}>
+          <Button title="ADD" onPress={addGoalHandler} />
+        </View>
       </View>
-      <View style={styles.button}>
-        <Button title="CLEAR" onPress={props.onClearGoals} />
+      <View style={styles.space} />
+      <View style={styles.container}>
+        <View style={styles.button}>
+          <Button title="CLEAR" onPress={props.onClearGoals} />
+        </View>
+        <View style={styles.button}>
+          <Button title="CANCEL" color="red" onPress={props.onCancel} />
+        </View>
       </View>
-    </View>
+    </CustomModal>
   );
 };
 
 const styles = StyleSheet.create({
-  inputContainer: {
+  container: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
   },
   input: {
-    flex: 3,
+    flex: 2,
     borderColor: "black",
     borderWidth: 1,
     padding: 10,
@@ -43,6 +55,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 5,
     margin: 5,
+    justifyContent: "center",
+  },
+  space: {
+    padding: 20,
   },
 });
 
