@@ -1,26 +1,53 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  Text,
+  TextInput,
+  View,
+  Button,
+  ScrollView,
+  FlatList,
+} from "react-native";
+import styles from "./styles";
 
 export default function App() {
-  const [outputText, setOutputText] = useState(
-    "Open up App.js to start working on your app!"
-  );
+  const [enteredGoal, setEnteredGoal] = useState("");
+  const [courseGoals, setCourseGoals] = useState([]);
+
+  function goalInputHandler(enteredText) {
+    setEnteredGoal(enteredText);
+  }
+
+  function addGoalHandler() {
+    console.log(enteredGoal);
+    var length = courseGoals.length;
+    setCourseGoals((courseGoals) => [...courseGoals, enteredGoal]);
+    //setEnteredGoal("");
+  }
+
+  function clearGoalsHandler() {
+    setCourseGoals([]);
+  }
+
   return (
     <View style={styles.container}>
-      <Text>{outputText}</Text>
-      <Button
-        title="change text"
-        onPress={() => setOutputText("Text updated")}
+      <View style={styles.container}>
+        <TextInput
+          placeholder="Course goal"
+          style={styles.input}
+          onChangeText={goalInputHandler}
+          value={enteredGoal}
+        />
+        <Button title="ADD" onPress={addGoalHandler} />
+        <Button title="CLEAR" onPress={clearGoalsHandler} />
+      </View>
+      <FlatList
+        keyExtractor={(item, index) => index + ""}
+        style={styles.container}
+        data={courseGoals}
+        renderItem={(itemData) => (
+          <Text style={styles.listItem}>{itemData.item}</Text>
+        )}
       />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
