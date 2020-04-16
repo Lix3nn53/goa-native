@@ -1,53 +1,53 @@
-import React, { useState } from "react";
-import { View, FlatList, Button } from "react-native";
-import styles from "./styles";
-import GoalItem from "./components/GoalItem";
-import GoalInput from "./components/GoalInput";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeScreen from "./views/HomeScreen";
+import LoreScreen from "./views/LoreScreen";
+import DetailsScreen from "./views/DetailsScreen";
+import CreatePostScreen from "./views/CreatePostScreen";
+import { Image, Button, Text } from "react-native";
+
+const Stack = createStackNavigator();
+
+function LogoTitle() {
+  return (
+    <Image
+      style={{ width: 50, height: 50 }}
+      source={require("./assets/ender_pearl.png")}
+    />
+  );
+}
 
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState([]);
-  const [isAddModelVisible, setAddModelVisible] = useState(false);
-
-  function addGoalHandler(enteredGoal) {
-    setCourseGoals((currentGoals) => [...currentGoals, enteredGoal]);
-    setAddModelVisible(false);
-  }
-
-  function clearGoalsHandler() {
-    setCourseGoals([]);
-  }
-
-  function removeGoalHandler(indexToRemove) {
-    var a = courseGoals.slice(); //create a copy since we cant edit directly
-    a.splice(indexToRemove, 1); //remove
-    setCourseGoals(a); //apply
-  }
-
-  function cancelAddGoalHandler() {
-    setAddModelVisible(false);
-  }
-
   return (
-    <View style={styles.container}>
-      <Button title="Add New Goal" onPress={() => setAddModelVisible(true)} />
-      <GoalInput
-        visible={isAddModelVisible}
-        onAddGoal={addGoalHandler}
-        onClearGoals={clearGoalsHandler}
-        onCancel={cancelAddGoalHandler}
-      />
-      <FlatList
-        keyExtractor={(item, index) => index + ""}
-        style={styles.container}
-        data={courseGoals}
-        renderItem={(itemData) => (
-          <GoalItem
-            text={itemData.item}
-            index={itemData.index}
-            onDelete={removeGoalHandler}
-          />
-        )}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: "#f4511e",
+          },
+          headerTintColor: "#fff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      >
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={({ navigation, route }) => ({
+            headerTitle: (props) => <LogoTitle {...props} />,
+          })}
+        />
+        <Stack.Screen name="Lore" component={LoreScreen} />
+        <Stack.Screen
+          name="Details"
+          component={DetailsScreen}
+          initialParams={{ itemId: 42 }}
+        />
+        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
