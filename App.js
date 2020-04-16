@@ -1,53 +1,28 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import HomeScreen from "./views/HomeScreen";
-import LoreScreen from "./views/LoreScreen";
-import DetailsScreen from "./views/DetailsScreen";
-import CreatePostScreen from "./views/CreatePostScreen";
-import { Image, Button, Text } from "react-native";
-
-const Stack = createStackNavigator();
-
-function LogoTitle() {
-  return (
-    <Image
-      style={{ width: 50, height: 50 }}
-      source={require("./assets/ender_pearl.png")}
-    />
-  );
-}
+import { View, Image, Button, Text } from "react-native";
+import RootStackScreen from "./navigation/RootStackScreen";
 
 export default function App() {
+  const themeSelection = "dark";
+
+  const MyDarkTheme = {
+    dark: true,
+    colors: {
+      primary: "rgb(255, 45, 85)",
+      background: "rgb(242, 242, 242)",
+      card: "rgb(255, 255, 255)",
+      text: "rgb(28, 28, 30)",
+      border: "rgb(199, 199, 204)",
+    },
+  };
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#f4511e",
-          },
-          headerTintColor: "#fff",
-          headerTitleStyle: {
-            fontWeight: "bold",
-          },
-        }}
-      >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={({ navigation, route }) => ({
-            headerTitle: (props) => <LogoTitle {...props} />,
-          })}
-        />
-        <Stack.Screen name="Lore" component={LoreScreen} />
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          initialParams={{ itemId: 42 }}
-        />
-        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
-      </Stack.Navigator>
+    <NavigationContainer
+      theme={themeSelection === "dark" ? MyDarkTheme : DefaultTheme}
+    >
+      <RootStackScreen />
     </NavigationContainer>
   );
 }
