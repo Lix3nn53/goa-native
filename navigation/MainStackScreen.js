@@ -1,17 +1,11 @@
 import React from "react";
-import HomeScreen from "../views/HomeScreen";
-import DetailsScreen from "../views/DetailsScreen";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import IconWithBadge from "../components/IconWithBadge";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
+import HomeScreen from "../screens/HomeScreen";
+import LoreScreen from "../screens/LoreScreen";
+import StoreScreen from "../screens/StoreScreen";
 
 const Tab = createBottomTabNavigator();
-
-function HomeIconWithBadge(props) {
-  // You should pass down the badgeCount in some other ways like React Context API, Redux, MobX or event emitters.
-  return <IconWithBadge {...props} badgeCount={3} />;
-}
 
 function MainStackScreen() {
   return (
@@ -20,20 +14,32 @@ function MainStackScreen() {
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === "Home") {
             return (
-              <HomeIconWithBadge
-                name={
-                  focused
-                    ? "ios-information-circle"
-                    : "ios-information-circle-outline"
-                }
+              <FontAwesome
+                name={focused ? "home" : "home"}
                 size={size}
                 color={color}
               />
             );
-          } else if (route.name === "Details") {
+          } else if (route.name === "Lore") {
             return (
-              <Ionicons
-                name={focused ? "ios-list-box" : "ios-list"}
+              <FontAwesome
+                name={focused ? "book" : "book"}
+                size={size}
+                color={color}
+              />
+            );
+          } else if (route.name === "Store") {
+            return (
+              <FontAwesome
+                name={focused ? "shopping-bag" : "shopping-bag"}
+                size={size}
+                color={color}
+              />
+            );
+          } else if (route.name === "Login") {
+            return (
+              <FontAwesome
+                name={focused ? "sign-in" : "sign-in"}
                 size={size}
                 color={color}
               />
@@ -47,7 +53,9 @@ function MainStackScreen() {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Details" component={DetailsScreen} />
+      <Tab.Screen name="Lore" component={LoreScreen} />
+      <Tab.Screen name="Store" component={StoreScreen} />
+      <Tab.Screen name="Login" component={StoreScreen} />
     </Tab.Navigator>
   );
 }

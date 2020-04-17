@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import MainStackScreen from "./MainStackScreen";
-import ModalScreen from "../views/ModalScreen";
+import ModalScreen from "../screens/ModalScreen";
 
 const RootStack = createStackNavigator();
 
