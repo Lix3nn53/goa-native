@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { View, Image, Button, Text } from "react-native";
-import RootStackScreen from "./navigation/RootStackScreen";
+import RootStackScreen from "./navigation/RootStackNavigator";
+import { StyleSheet, SafeAreaView } from "react-native";
+import * as Font from "expo-font";
+import { AppLoading } from "expo";
+
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+};
 
 export default function App() {
+  const [dataLoaded, setDataLoaded] = useState(false);
+
   const themeSelection = "dark";
 
   const MyDarkTheme = {
@@ -18,11 +28,29 @@ export default function App() {
     },
   };
 
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fetchFonts}
+        onFinish={() => setDataLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
+
   return (
-    <NavigationContainer
-      theme={themeSelection === "dark" ? MyDarkTheme : DefaultTheme}
-    >
-      <RootStackScreen />
-    </NavigationContainer>
+    <SafeAreaView style={styles.screen}>
+      <NavigationContainer
+        theme={themeSelection === "dark" ? MyDarkTheme : DefaultTheme}
+      >
+        <RootStackScreen />
+      </NavigationContainer>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+  },
+});

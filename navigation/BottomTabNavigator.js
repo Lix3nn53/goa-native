@@ -4,10 +4,11 @@ import { FontAwesome } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
 import LoreScreen from "../screens/LoreScreen";
 import StoreScreen from "../screens/StoreScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 const Tab = createBottomTabNavigator();
 
-function MainStackScreen() {
+function BottomTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -48,16 +49,18 @@ function MainStackScreen() {
         },
       })}
       tabBarOptions={{
-        activeTintColor: "tomato",
-        inactiveTintColor: "gray",
+        activeTintColor: "#ffa04d",
+        inactiveTintColor: "#f5f3f0",
+        activeBackgroundColor: "#493c37",
+        inactiveBackgroundColor: "#3a312c",
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Lore" component={LoreScreen} />
       <Tab.Screen name="Store" component={StoreScreen} />
-      <Tab.Screen name="Login" component={StoreScreen} />
+      <Tab.Screen name="Login" component={LoginScreen} />
     </Tab.Navigator>
   );
 }
 
-export default MainStackScreen;
+export default BottomTabNavigator;
