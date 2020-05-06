@@ -20,7 +20,7 @@ function RootStackNavigator() {
         name="MyModal"
         component={ModalScreen}
         options={{
-          headerStyle: { backgroundColor: Colors.accent },
+          headerStyle: { backgroundColor: Colors.accent_dark },
         }}
       />
     </RootStack.Navigator>

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   button: {
-    backgroundColor: Colors.accent,
+    backgroundColor: Colors.accent_dark,
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 25,

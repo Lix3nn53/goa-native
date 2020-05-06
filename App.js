@@ -4,6 +4,7 @@ import RootStackScreen from "./navigation/RootStackNavigator";
 import { StyleSheet, SafeAreaView } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+import Colors from "./constants/colors";
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -14,19 +15,6 @@ const fetchFonts = () => {
 
 export default function App() {
   const [dataLoaded, setDataLoaded] = useState(false);
-
-  const themeSelection = "dark";
-
-  const MyDarkTheme = {
-    dark: true,
-    colors: {
-      primary: "rgb(255, 45, 85)",
-      background: "rgb(242, 242, 242)",
-      card: "rgb(255, 255, 255)",
-      text: "rgb(28, 28, 30)",
-      border: "rgb(199, 199, 204)",
-    },
-  };
 
   if (!dataLoaded) {
     return (
@@ -41,7 +29,16 @@ export default function App() {
   return (
     <SafeAreaView style={styles.screen}>
       <NavigationContainer
-        theme={themeSelection === "dark" ? MyDarkTheme : DefaultTheme}
+        theme={{
+          dark: true,
+          colors: {
+            primary: Colors.primary,
+            background: Colors.primary_dark,
+            card: Colors.primary,
+            text: Colors.primary,
+            border: Colors.primary_darker,
+          },
+        }}
       >
         <RootStackScreen />
       </NavigationContainer>
