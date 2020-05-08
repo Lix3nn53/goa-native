@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome } from "@expo/vector-icons";
 import HomeScreen from "../screens/HomeScreen";
-import LoreScreen from "../screens/LoreScreen";
+import LoreListScreen from "../screens/lore/LoreListScreen";
 import StoreScreen from "../screens/StoreScreen";
 import LoginScreen from "../screens/LoginScreen";
 
@@ -56,7 +56,7 @@ function BottomTabNavigator() {
       }}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Lore" component={LoreScreen} />
+      <Tab.Screen name="Lore" component={LoreListScreen} />
       <Tab.Screen name="Store" component={StoreScreen} />
       <Tab.Screen name="Login" component={LoginScreen} />
     </Tab.Navigator>

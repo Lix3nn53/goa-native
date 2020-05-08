@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
-import RootStackScreen from "./navigation/RootStackNavigator";
+import { NavigationContainer } from "@react-navigation/native";
+import RootStackNavigator from "./navigation/RootStackNavigator";
 import { StyleSheet, SafeAreaView } from "react-native";
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
@@ -40,7 +40,7 @@ export default function App() {
           },
         }}
       >
-        <RootStackScreen />
+        <RootStackNavigator />
       </NavigationContainer>
     </SafeAreaView>
   );

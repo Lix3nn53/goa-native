@@ -1,10 +1,8 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import BottomTabNavigator from "./BottomTabNavigator";
-import ModalScreen from "../screens/ModalScreen";
+import LoreChapterScreen from "../screens/lore/LoreChapterScreen";
 import Colors from "../constants/colors";
-import { BlurView } from "expo-blur";
 
 const RootStack = createStackNavigator();
 
@@ -14,11 +12,18 @@ function RootStackNavigator() {
       <RootStack.Screen
         name="Main"
         component={BottomTabNavigator}
-        options={{ headerShown: false }}
+        options={({ route }) => ({
+          headerStyle: {
+            backgroundColor: Colors.accent_dark,
+          },
+          headerTitle: getTabHeaderTitle(route),
+          headerTitleAlign: "center",
+          headerTintColor: Colors.primary,
+        })}
       />
       <RootStack.Screen
-        name="MyModal"
-        component={ModalScreen}
+        name="LoreChapterScreen"
+        component={LoreChapterScreen}
         options={{
           headerStyle: { backgroundColor: Colors.accent_dark },
         }}
@@ -28,3 +33,11 @@ function RootStackNavigator() {
 }
 
 export default RootStackNavigator;
+
+function getTabHeaderTitle(route) {
+  const routeName = route.state
+    ? route.state.routes[route.state.index].name
+    : route.params?.screen || "Home";
+
+  return routeName;
+}
