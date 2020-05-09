@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import defaultScreenOptions from "../../constants/defaultScreenOptions";
-import LoreListScreen from "../../screens/lore/LoreListScreen";
+import HomeScreen from "../../screens/HomeScreen";
 import LoreChapterScreen from "../../screens/lore/LoreChapterScreen";
 
 const Stack = createStackNavigator();
@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 function StackNavigator() {
   return (
     <Stack.Navigator screenOptions={defaultScreenOptions}>
-      <Stack.Screen name="PostList" component={LoreListScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Post" component={LoreChapterScreen} />
     </Stack.Navigator>
   );

@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
   body: {
     fontFamily: "open-sans",
     alignSelf: "flex-start",
-    paddingTop: 16,
   },
 });
 

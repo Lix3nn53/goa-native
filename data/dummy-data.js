@@ -1,4 +1,5 @@
 import LoreChapter from "../models/LoreChapter";
+import Post from "../models/Post";
 
 export const LORE_CHAPTERS = [
   new LoreChapter(1, "Soleis", [
@@ -30,4 +31,27 @@ export const LORE_CHAPTERS = [
     "It wasn’t just revenge that Aleesia was trying to accomplish. She was trying to undo everything Makaph had done. She gathered the other free-willed undead to her side, and gave them a banner to fight under. But it didn’t undo what Makaph had done. None of it did. When the Undead King fell, Aleesia went to his throne. Only to find another sitting on it, herself. Life is pain. Hope fails. She understand that even if they form Soleis again and restore peace, people can never maintain it. There will always be hatred, greed, stupidity to feed the Darkness.",
     "What, then, is Aleesia’s, the Undead Queen's, ultimate goal? It may very well be peace – but not the kind of peace everyone else imagines when they say the word. No, it’s the kind of peace that exists in a world without conflict. Without feeling. Without life. It’s the cold, absent grasp of undeath – unyielding and unchanging. Neither alive nor dead, simply existing, purposeless and unfeeling in an absence of want, need, or desire.",
   ]),
+];
+
+export const POSTS = [
+  new Post(
+    "https://i.ibb.co/tpX1Fbd/Optimized-2019-08-22-02-31-21.jpg",
+    "Title",
+    "adsasdasdasdasdsafsaffdgyteyety"
+  ),
+  new Post(
+    "https://i.ibb.co/tpX1Fbd/Optimized-2019-08-22-02-31-21.jpg",
+    "Title",
+    "adsasdasdasdasdsafsaffdgyteyety"
+  ),
+  new Post(
+    "https://i.ibb.co/tpX1Fbd/Optimized-2019-08-22-02-31-21.jpg",
+    "Title",
+    "adsasdasdasdasdsafsaffdgyteyety"
+  ),
+  new Post(
+    "https://i.ibb.co/tpX1Fbd/Optimized-2019-08-22-02-31-21.jpg",
+    "Title",
+    "adsasdasdasdasdsafsaffdgyteyety"
+  ),
 ];

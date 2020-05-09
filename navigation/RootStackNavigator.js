@@ -8,7 +8,7 @@ const RootStack = createStackNavigator();
 
 function RootStackNavigator() {
   return (
-    <RootStack.Navigator mode="card">
+    <RootStack.Navigator mode="modal">
       <RootStack.Screen
         name="Main"
         component={BottomTabNavigator}
