@@ -1,14 +1,14 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as React from "react";
 import { FontAwesome } from "@expo/vector-icons";
-import HomeScreen from "../screens/HomeScreen";
-import LoreListScreen from "../screens/lore/LoreListScreen";
-import StoreScreen from "../screens/StoreScreen";
-import LoginScreen from "../screens/LoginScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeStackNavigator from "./bottomTabNavigators/HomeStackNavigator";
+import LoreStackNavigator from "./bottomTabNavigators/LoreStackNavigator";
+import StoreStackNavigator from "./bottomTabNavigators/StoreStackNavigator";
+import LoginStackNavigator from "./bottomTabNavigators/LoginStackNavigator";
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabNavigator() {
+export default function TestNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -55,12 +55,10 @@ function BottomTabNavigator() {
         inactiveBackgroundColor: "#3a312c",
       }}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Lore" component={LoreListScreen} />
-      <Tab.Screen name="Store" component={StoreScreen} />
-      <Tab.Screen name="Login" component={LoginScreen} />
+      <Tab.Screen name="Home">{() => <HomeStackNavigator />}</Tab.Screen>
+      <Tab.Screen name="Lore">{() => <LoreStackNavigator />}</Tab.Screen>
+      <Tab.Screen name="Store">{() => <StoreStackNavigator />}</Tab.Screen>
+      <Tab.Screen name="Login">{() => <LoginStackNavigator />}</Tab.Screen>
     </Tab.Navigator>
   );
 }
-
-export default BottomTabNavigator;

@@ -8,21 +8,14 @@ const RootStack = createStackNavigator();
 
 function RootStackNavigator() {
   return (
-    <RootStack.Navigator mode="modal">
+    <RootStack.Navigator mode="card">
       <RootStack.Screen
         name="Main"
         component={BottomTabNavigator}
-        options={({ route }) => ({
-          headerStyle: {
-            backgroundColor: Colors.accent_dark,
-          },
-          headerTitle: getTabHeaderTitle(route),
-          headerTitleAlign: "center",
-          headerTintColor: Colors.primary,
-        })}
+        options={{ headerShown: false }}
       />
       <RootStack.Screen
-        name="LoreChapterScreen"
+        name="Modal"
         component={LoreChapterScreen}
         options={{
           headerStyle: { backgroundColor: Colors.accent_dark },
@@ -34,10 +27,10 @@ function RootStackNavigator() {
 
 export default RootStackNavigator;
 
-function getTabHeaderTitle(route) {
+/*function getTabHeaderTitle(route) {
   const routeName = route.state
     ? route.state.routes[route.state.index].name
     : route.params?.screen || "Home";
 
   return routeName;
-}
+}*/

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import BodyText from "../../components/BodyText";
 
 import { LORE_CHAPTERS } from "../../data/dummy-data";
@@ -19,7 +19,12 @@ const LoreChapterScreen = ({ route, navigation }) => {
     paragraphes.push(<BodyText key={index}>{paragraph}</BodyText>)
   );
 
-  return <View style={styles.screen}>{paragraphes}</View>;
+  return (
+    <ScrollView style={styles.screen}>
+      {paragraphes}
+      <BodyText />
+    </ScrollView>
+  );
 };
 
 const styles = StyleSheet.create({

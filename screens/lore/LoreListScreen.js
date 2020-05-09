@@ -11,9 +11,9 @@ const LoreListScreen = (props) => {
     return (
       <GridTile
         title={"Chapter " + itemData.item.chapter + ": " + itemData.item.title}
-        color={Colors.accent}
+        color={Colors.orange}
         onSelect={() => {
-          props.navigation.navigate("LoreChapterScreen", {
+          props.navigation.navigate("LoreChapter", {
             chapterNo: itemData.item.chapter,
           });
         }}
@@ -23,7 +23,7 @@ const LoreListScreen = (props) => {
 
   return (
     <FlatList
-      keyExtractor={(item, index) => item.id}
+      keyExtractor={(item, index) => index}
       data={LORE_CHAPTERS}
       renderItem={renderGridItem}
       numColumns={2}
