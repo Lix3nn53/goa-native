@@ -14,7 +14,9 @@ const LoreListScreen = (props) => {
         color={Colors.orange}
         onSelect={() => {
           props.navigation.navigate("LoreChapter", {
-            chapterNo: itemData.item.chapter,
+            chapter: itemData.item.chapter,
+            title: itemData.item.title,
+            paragraphes: itemData.item.paragraphes,
           });
         }}
       />

@@ -10,14 +10,13 @@ const HomeScreen = (props) => {
     return (
       <Post
         title={itemData.item.title}
-        image={itemData.item.imageUrl}
+        imageUrl={itemData.item.imageUrl}
         text={itemData.item.text}
-        onSelectMeal={() => {
-          props.navigation.navigate({
-            routeName: "MealDetail",
-            params: {
-              mealId: itemData.item.id,
-            },
+        onSelect={() => {
+          props.navigation.navigate("Post", {
+            imageUrl: itemData.item.imageUrl,
+            title: itemData.item.title,
+            text: itemData.item.text,
           });
         }}
       />

@@ -32,27 +32,39 @@ const Post = (props) => {
     };
   });
 
+  const renderTextPreview = () => {
+    const limit = 240;
+
+    if (props.text && props.text.length > limit) {
+      const preview = props.text.substring(0, limit - 1);
+
+      return preview + "...";
+    }
+
+    return props.text;
+  };
+
   return (
     <View style={styles.post}>
-      <TouchableOpacity onPress={props.onSelectMeal}>
+      <TouchableOpacity onPress={props.onSelect}>
         <View>
-          <View style={{ ...styles.postRow, ...styles.postHeader }}>
+          <View style={{ ...styles.row, ...styles.postHeader }}>
             <ImageBackground
-              source={{ uri: props.image }}
+              source={{ uri: props.imageUrl }}
               style={styles.bgImage}
             />
           </View>
           <View
             style={{
-              ...styles.postRow,
+              ...styles.row,
               ...styles.postDetail,
               ...styles.postTitle,
             }}
           >
             <TitleText numberOfLines={1}>{props.title}</TitleText>
           </View>
-          <View style={{ ...styles.postRow, ...styles.postDetail }}>
-            <BodyText>{props.text}</BodyText>
+          <View style={{ ...styles.row, ...styles.postDetail }}>
+            <BodyText>{renderTextPreview()}</BodyText>
           </View>
         </View>
       </TouchableOpacity>
@@ -73,11 +85,12 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: "flex-end",
   },
-  postRow: {
+  row: {
     flexDirection: "row",
   },
   postHeader: {
     height: "75%",
+    maxHeight: 240,
   },
   postTitle: {
     paddingTop: 10,

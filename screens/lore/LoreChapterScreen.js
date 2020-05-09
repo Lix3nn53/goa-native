@@ -2,26 +2,26 @@ import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import BodyText from "../../components/BodyText";
 
-import { LORE_CHAPTERS } from "../../data/dummy-data";
-
 const LoreChapterScreen = ({ route, navigation }) => {
-  const { chapterNo } = route.params;
-
-  const chapter = LORE_CHAPTERS.find((item) => item.chapter === chapterNo);
+  const { chapter, title, paragraphes } = route.params;
 
   navigation.setOptions({
-    title: "Chapter " + chapter.chapter + ": " + chapter.title,
+    title: "Chapter " + chapter + ": " + title,
   });
 
-  var paragraphes = [];
+  var paragraphComponents = [];
 
-  chapter.paragraphes.forEach((paragraph, index) =>
-    paragraphes.push(<BodyText key={index}>{paragraph}</BodyText>)
+  paragraphes.forEach((paragraph, index) =>
+    paragraphComponents.push(
+      <BodyText key={index} style={styles.paragraph}>
+        {paragraph}
+      </BodyText>
+    )
   );
 
   return (
     <ScrollView style={styles.screen}>
-      {paragraphes}
+      {paragraphComponents}
       <BodyText />
     </ScrollView>
   );
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingHorizontal: 5,
+  },
+  paragraph: {
+    paddingTop: 16,
   },
 });
 
