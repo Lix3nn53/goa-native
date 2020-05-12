@@ -1,10 +1,19 @@
 import React, { useState } from "react";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import reduxThunk from "redux-thunk";
+
+import { StyleSheet, SafeAreaView } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import RootStackNavigator from "./navigation/RootStackNavigator";
-import { StyleSheet, SafeAreaView } from "react-native";
+
 import * as Font from "expo-font";
 import { AppLoading } from "expo";
+
 import Colors from "./constants/colors";
+import reducers from "./store/reducers";
+
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
 const fetchFonts = () => {
   return Font.loadAsync({
@@ -27,22 +36,24 @@ export default function App() {
   }
 
   return (
-    <SafeAreaView style={styles.screen}>
-      <NavigationContainer
-        theme={{
-          dark: true,
-          colors: {
-            primary: Colors.primary,
-            background: Colors.primary_dark,
-            card: Colors.primary,
-            text: Colors.primary,
-            border: Colors.primary_darker,
-          },
-        }}
-      >
-        <RootStackNavigator />
-      </NavigationContainer>
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.screen}>
+        <NavigationContainer
+          theme={{
+            dark: true,
+            colors: {
+              primary: Colors.primary,
+              background: Colors.primary_dark,
+              card: Colors.primary,
+              text: Colors.primary,
+              border: Colors.primary_darker,
+            },
+          }}
+        >
+          <RootStackNavigator />
+        </NavigationContainer>
+      </SafeAreaView>
+    </Provider>
   );
 }
 

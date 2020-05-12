@@ -25,7 +25,7 @@ const LoreListScreen = (props) => {
 
   return (
     <FlatList
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) => "" + index}
       data={LORE_CHAPTERS}
       renderItem={renderGridItem}
       numColumns={2}
