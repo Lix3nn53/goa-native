@@ -12,7 +12,7 @@ import Post from "../components/Post";
 import Colors from "../constants/colors";
 
 import { useSelector, useDispatch } from "react-redux";
-import { fetchPosts } from "../store/actions";
+import { fetchPosts, fetchMorePosts } from "../store/actions";
 
 const HomeScreen = (props) => {
   //const statePrint = useSelector((state) => console.log(state));
@@ -23,11 +23,13 @@ const HomeScreen = (props) => {
   const [page, setPage] = useState(1);
   const [postPerPage, setpostPerPage] = useState(3);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
 
-  const loadPosts = useCallback(async () => {
+  const refreshPosts = useCallback(async () => {
+    setPage(1);
     setError(null);
     setIsRefreshing(true);
     try {
@@ -39,30 +41,38 @@ const HomeScreen = (props) => {
   }, [dispatch, setIsLoading, setError]);
 
   const loadMorePosts = useCallback(async () => {
+    if (!posts.currentResults) return;
     if (posts.currentResults.length === posts.totalResults) return;
+    if (!hasScrolled) return;
 
     setIsLoadingMore(true);
     try {
-      await dispatch(fetchPosts(page + 1, postPerPage));
-      setPage(page + 1);
+      await dispatch(fetchMorePosts(page + 1, postPerPage));
+      if (posts.currentResults.length < posts.totalResults) {
+        setPage(page + 1);
+      }
     } catch (err) {
       setError(err.message);
     }
-    setIsRefreshing(false);
-  }, [dispatch, setIsLoadingMore]);
+    setIsLoadingMore(false);
+  }, [dispatch, posts]);
 
   useEffect(() => {
-    const unsubscribe = props.navigation.addListener("focus", loadPosts);
+    const unsubscribe = props.navigation.addListener("focus", refreshPosts);
 
     return unsubscribe;
-  }, [loadPosts]);
+  }, [refreshPosts]);
 
   useEffect(() => {
     setIsLoading(true);
-    loadPosts().then(() => {
+    refreshPosts().then(() => {
       setIsLoading(false);
     });
-  }, [dispatch, loadPosts]);
+  }, [dispatch, refreshPosts]);
+
+  const onScroll = useCallback(async () => {
+    setHasScrolled(true);
+  }, [setHasScrolled]);
 
   const renderGridItem = (itemData) => {
     return (
@@ -81,12 +91,30 @@ const HomeScreen = (props) => {
     );
   };
 
+  const renderFooter = () => {
+    if (!isLoadingMore) return null;
+
+    return (
+      <View
+        style={{
+          padding: 40,
+        }}
+      >
+        <ActivityIndicator animating size="large" />
+      </View>
+    );
+  };
+
   if (error) {
     console.log(error);
     return (
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
-        <Button title="Try again" onPress={loadPosts} color={Colors.primary} />
+        <Button
+          title="Try again"
+          onPress={refreshPosts}
+          color={Colors.primary}
+        />
       </View>
     );
   }
@@ -111,13 +139,15 @@ const HomeScreen = (props) => {
     <View>
       <TitleText style={styles.title}>Latest Posts</TitleText>
       <FlatList
-        onRefresh={loadPosts}
+        onRefresh={refreshPosts}
         refreshing={isRefreshing}
         data={posts.currentResults}
         keyExtractor={(item, index) => "" + index}
         renderItem={renderGridItem}
         onEndReached={loadMorePosts}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.1}
+        onScroll={onScroll}
+        ListFooterComponent={renderFooter}
       />
     </View>
   );

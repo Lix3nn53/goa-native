@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   FETCH_USER,
   FETCH_POSTS,
+  FETCH_MORE_POSTS,
   NOTIFICATION_MODAL,
   NOTIFICATION_TOPBAR,
 } from "./types";
@@ -104,6 +105,17 @@ export const fetchPosts = (page, limit) => async (dispatch) => {
   );
 
   dispatch({ type: FETCH_POSTS, payload: res.data });
+};
+
+export const fetchMorePosts = (page, limit) => async (dispatch) => {
+  const res = await axios.get(
+    "https://guardiansofadelia.herokuapp.com/api/posts?page=" +
+      page +
+      "&limit=" +
+      limit
+  );
+
+  dispatch({ type: FETCH_MORE_POSTS, payload: res.data });
 };
 
 export const notifyModal = (isVisible, type, message) => async (dispatch) => {
